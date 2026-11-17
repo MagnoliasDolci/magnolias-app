@@ -1,0 +1,22 @@
+{
+  "name": "Magnolias · Registro",
+  "short_name": "Magnolias",
+  "description": "Registro diario de ventas, producción y cierre de Magnolias · Repostería artesanal",
+  "lang": "es-PE",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#C08A64",
+  "theme_color": "#C08A64",
+  "icons": [
+    { "src": "iconos/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "iconos/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Venta", "url": "./?modo=venta", "icons": [{ "src": "iconos/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Producción", "url": "./?modo=produccion", "icons": [{ "src": "iconos/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Cierre del día", "url": "./?modo=cierre", "icons": [{ "src": "iconos/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
