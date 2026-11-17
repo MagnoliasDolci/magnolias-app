@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Magnolias · Registro</title>
+<meta name="description" content="App de registro diario de Magnolias · Repostería artesanal">
+<meta name="theme-color" content="#C08A64">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="iconos/favicon-32.png">
+<link rel="apple-touch-icon" href="iconos/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Magnolias">
+<style>
+  html, body { margin: 0; height: 100%; background: #FEF9F5; overflow: hidden; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #3A2D2B; }
+  #app { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #FEF9F5;
+         padding-top: env(safe-area-inset-top); box-sizing: border-box; }
+  #carga { position: fixed; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center;
+           justify-content: center; gap: 18px; background: #C08A64; color: #FEF9F5; transition: opacity .35s; }
+  #carga img { width: 110px; height: auto; animation: latido 1.6s ease-in-out infinite; }
+  #carga p { margin: 0; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; }
+  #carga.oculto { opacity: 0; pointer-events: none; }
+  #aviso { position: fixed; left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom)); z-index: 3;
+           padding: 12px 14px; border-radius: 12px; background: #9D5354; color: #fff; font-size: 15px; text-align: center; }
+  @keyframes latido { 0%, 100% { transform: scale(1); opacity: .9; } 50% { transform: scale(1.06); opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { #carga img { animation: none; } }
+</style>
+</head>
+<body>
+  <div id="carga" aria-live="polite">
+    <img src="iconos/iso_crema.png" alt="Magnolias">
+    <p id="carga-texto">Cargando…</p>
+  </div>
+  <div id="aviso" hidden></div>
+  <iframe id="app" title="Magnolias · Registro diario" allow="clipboard-write" referrerpolicy="no-referrer"></iframe>
+
+  <script>
+  // config.js se pide siempre fresco (sin caché) para que un cambio de link se vea al instante.
+  (function () {
+    var s = document.createElement('script');
+    s.src = 'config.js?v=' + Date.now();
+    s.onload = s.onerror = arrancar;
+    document.head.appendChild(s);
+  })();
+
+  function arrancar() {
+    'use strict';
+    var url = String(window.MAGNOLIAS_APP_URL || '').trim();
+    var carga = document.getElementById('carga');
+    var aviso = document.getElementById('aviso');
+    var frame = document.getElementById('app');
+
+    function mostrarAviso(t) { aviso.textContent = t; aviso.hidden = false; }
+
+    if (!/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url)) {
+      document.getElementById('carga-texto').textContent = 'Falta configurar el link de la app';
+      mostrarAviso('Configura el link /exec en config.js (ver README).');
+      return;
+    }
+    // Atajos: …/?modo=venta | produccion | cierre | sabores
+    var modo = new URLSearchParams(location.search).get('modo');
+    if (['venta', 'produccion', 'cierre', 'sabores'].indexOf(modo) >= 0) url += '?modo=' + modo;
+
+    frame.addEventListener('load', function () { carga.classList.add('oculto'); });
+    setTimeout(function () { carga.classList.add('oculto'); }, 12000);
+    frame.src = url;
+
+    function revisarRed() {
+      if (navigator.onLine) aviso.hidden = true;
+      else mostrarAviso('Sin internet: la app necesita conexión para guardar.');
+    }
+    window.addEventListener('online', revisarRed);
+    window.addEventListener('offline', revisarRed);
+    revisarRed();
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    }
+  }
+  </script>
+</body>
+</html>

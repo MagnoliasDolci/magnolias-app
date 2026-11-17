@@ -1,6 +1,6 @@
 // Service worker mínimo: guarda la "cáscara" (página, íconos, configuración) para que la app abra rápido.
 // Los datos NO se guardan aquí: siempre se leen y escriben en vivo en el ERP de Google.
-var VERSION = 'magnolias-v1';
+var VERSION = 'magnolias-v2';
 var CASCARA = ['./', 'index.html', 'config.js', 'manifest.webmanifest', 'iconos/iso_crema.png',
                'iconos/icon-192.png', 'iconos/icon-512.png', 'iconos/apple-touch-icon.png', 'iconos/favicon-32.png'];
 
@@ -15,7 +15,8 @@ self.addEventListener('activate', function (e) {
 // Primero la red (así un cambio en config.js se ve al instante); si no hay internet, lo guardado.
 self.addEventListener('fetch', function (e) {
   if (e.request.method !== 'GET' || new URL(e.request.url).origin !== self.location.origin) return;
-  e.respondWith(fetch(e.request).then(function (r) {
+  var esConfig = /\/config\.js$/.test(new URL(e.request.url).pathname);
+  e.respondWith(fetch(e.request, esConfig ? { cache: 'no-store' } : undefined).then(function (r) {
     var copia = r.clone();
     caches.open(VERSION).then(function (c) { c.put(e.request, copia); });
     return r;
