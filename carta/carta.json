@@ -1,0 +1,69 @@
+{
+ "actualizado": "2026-11-23",
+ "fuente": "Respaldo: copia del ERP (PRODUCTOS activos) al 23/11/2026. La carta normalmente lee en vivo del ERP.",
+ "categorias": [
+  {
+   "id": "galletas",
+   "nombre": "Galletas grandes",
+   "detalle": "90 g · estilo New York"
+  },
+  {
+   "id": "packs",
+   "nombre": "Packs mini",
+   "detalle": "5 × 30 g"
+  }
+ ],
+ "productos": [
+  {
+   "nombre": "Classic",
+   "categoria": "galletas",
+   "precio": 5,
+   "formato": "Grande (90 g)",
+   "descripcion": "La original: chispas de chocolate y trozos de chocolate bitter.",
+   "agotado": false,
+   "etiqueta": "",
+   "foto": ""
+  },
+  {
+   "nombre": "Royal Pecan",
+   "categoria": "galletas",
+   "precio": 6,
+   "formato": "Grande (90 g)",
+   "descripcion": "Pecanas tostadas con chispas de chocolate y chocolate bitter.",
+   "agotado": false,
+   "etiqueta": "",
+   "foto": ""
+  },
+  {
+   "nombre": "Love Pistachio",
+   "categoria": "galletas",
+   "precio": 7,
+   "formato": "Grande (90 g)",
+   "descripcion": "Pistacho, crema de pistacho, chocolate blanco y arándanos.",
+   "agotado": false,
+   "etiqueta": "",
+   "foto": ""
+  },
+  {
+   "nombre": "Choco Paradise",
+   "categoria": "galletas",
+   "precio": 7,
+   "formato": "Grande (90 g)",
+   "descripcion": "Masa con cocoa y crema de avellanas, chispas blancas, chispas de chocolate y bitter.",
+   "agotado": false,
+   "etiqueta": "Nuevo",
+   "foto": ""
+  },
+  {
+   "nombre": "Pack Classic",
+   "categoria": "packs",
+   "precio": 10,
+   "formato": "Pack Mini (5 × 30 g)",
+   "descripcion": "Cinco mini Classic de 30 g. Para compartir (o no).",
+   "agotado": false,
+   "etiqueta": "",
+   "foto": ""
+  }
+ ],
+ "tienda": {}
+}
